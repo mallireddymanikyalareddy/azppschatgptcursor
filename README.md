@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AZPPS — AI-Powered Calculator Platform
+
+Production-ready foundation for the AZPPS platform, built with Next.js 15, React 19, TypeScript, Tailwind CSS 4, and shadcn/ui.
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **UI:** React 19, Tailwind CSS 4, shadcn/ui, Framer Motion, Lucide React
+- **Forms & Validation:** React Hook Form, Zod
+- **Theming:** next-themes (light / dark / system)
+- **Quality:** ESLint, Prettier, TypeScript (strict)
+
+## Prerequisites
+
+- Node.js 20+
+- npm 10+
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment variables
+
+```bash
+cp .env.example .env.local
+```
+
+Edit `.env.local` with your values. All public variables are validated at startup via Zod in `src/config/env.ts`.
+
+### 3. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Build for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+| Script            | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start dev server with Turbopack      |
+| `npm run build`   | Create production build              |
+| `npm start`       | Serve production build               |
+| `npm run lint`    | Run ESLint                           |
+| `npm run lint:fix`| Fix ESLint issues                    |
+| `npm run format`  | Format code with Prettier            |
+| `npm run typecheck` | Run TypeScript type checking       |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (main)/             # Main route group (header + footer layout)
+│   ├── layout.tsx          # Root layout, fonts, providers, metadata
+│   ├── loading.tsx         # Root loading UI
+│   ├── error.tsx           # Root error boundary
+│   ├── global-error.tsx    # Global error fallback
+│   ├── not-found.tsx       # 404 page
+│   └── globals.css         # Tailwind v4 + theme tokens
+├── components/
+│   ├── common/             # Shared UI (loading, error displays)
+│   ├── layout/             # Header, footer, theme toggle, main layout
+│   └── ui/                 # shadcn/ui primitives
+├── config/                 # App configuration (env, metadata, fonts, site)
+├── constants/              # App-wide constants
+├── hooks/                  # Custom React hooks
+├── lib/
+│   ├── utils/              # Utility functions (cn, format, etc.)
+│   └── validations/        # Shared Zod schemas
+├── providers/              # React context providers
+└── types/                  # Shared TypeScript types
+```
 
-## Deploy on Vercel
+## Architecture Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Clean separation:** Configuration, UI, utilities, and providers are isolated for scalability.
+- **Absolute imports:** Use `@/` prefix (configured in `tsconfig.json`).
+- **Environment safety:** Public env vars are validated with Zod before use.
+- **Accessibility:** Skip link, semantic landmarks, ARIA labels, and focus management.
+- **Performance:** Server Components by default; client components only where needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Adding shadcn/ui Components
+
+```bash
+npx shadcn@latest add [component-name]
+```
+
+Configuration lives in `components.json`.
+
+## License
+
+Private — All rights reserved.
