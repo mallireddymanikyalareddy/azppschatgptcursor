@@ -31,7 +31,8 @@ export async function generateMetadata({
 }
 
 /**
- * Root slug calculator route — e.g. /home-loan-emi.
+ * Root slug calculator route — public URLs are always `/{slug}`.
+ * Examples: /home-loan-emi, /simple-interest, /bmi
  * Only registered calculator slugs resolve; everything else 404s.
  */
 export default async function CalculatorSlugPage({ params }: PageProps) {

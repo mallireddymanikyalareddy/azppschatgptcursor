@@ -150,7 +150,7 @@ export const simpleInterestBuilderDefinition: CalculatorBuilderDefinition = {
     title: "Simple Interest Calculator",
     description: "Compute SI = P × R × T / 100 and maturity amount.",
     keywords: ["simple interest", "principal", "rate"],
-    canonical: "https://azpps.example/calculators/simple-interest",
+    canonical: "https://azpps.example/simple-interest",
     ogTitle: "Simple Interest Calculator",
   },
   content: {

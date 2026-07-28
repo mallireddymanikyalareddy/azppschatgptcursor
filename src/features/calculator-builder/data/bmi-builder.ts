@@ -111,7 +111,7 @@ export const bmiBuilderDefinition: CalculatorBuilderDefinition = {
     title: "BMI Calculator",
     description: "Calculate Body Mass Index using weight and height.",
     keywords: ["bmi", "body mass index", "health"],
-    canonical: "https://azpps.example/calculators/bmi",
+    canonical: "https://azpps.example/bmi",
     ogTitle: "BMI Calculator",
   },
   content: {

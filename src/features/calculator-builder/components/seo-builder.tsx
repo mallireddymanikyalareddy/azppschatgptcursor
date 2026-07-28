@@ -69,7 +69,7 @@ export function SEOBuilder({ definition, onChange }: SEOBuilderProps) {
             id="seo-canonical"
             value={seo.canonical ?? ""}
             onChange={(e) => update({ canonical: e.target.value || undefined })}
-            placeholder="https://azpps.example/calculators/home-loan-emi"
+            placeholder="https://azpps.example/home-loan-emi"
           />
         </div>
         <div className="space-y-2">

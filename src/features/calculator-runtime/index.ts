@@ -28,6 +28,10 @@ export {
   getCalculatorSlugs,
   listCalculatorDefinitions,
 } from "@/features/calculator-runtime/lib/registry";
+export {
+  getCalculatorPublicPath,
+  getCalculatorPublicUrl,
+} from "@/features/calculator-runtime/lib/public-path";
 export { useCalculatorWorkspace } from "@/features/calculator-runtime/hooks/use-calculator-workspace";
 export type { UseCalculatorWorkspaceResult } from "@/features/calculator-runtime/hooks/use-calculator-workspace";
 export { CalculatorWorkspace } from "@/features/calculator-runtime/components/calculator-workspace";
