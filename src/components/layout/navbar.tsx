@@ -69,6 +69,7 @@ export function Navbar({
             <SearchBox
               containerClassName="hidden w-56 lg:block"
               placeholder="Search…"
+              showShortcut
             />
           ) : null}
           {actions}

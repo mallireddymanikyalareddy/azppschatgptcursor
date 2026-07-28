@@ -1,16 +1,32 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  Info,
+  Megaphone,
+  OctagonX,
+} from "lucide-react";
 
-import { cn } from "@/lib/utils/index";
+import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
-  "relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+  "relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm shadow-xs has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
   {
     variants: {
       variant: {
-        default: "bg-card text-card-foreground",
+        default: "bg-card text-card-foreground border-border",
+        success:
+          "border-success/30 bg-success/10 text-foreground [&>svg]:text-success",
+        error:
+          "border-destructive/30 bg-destructive/10 text-foreground [&>svg]:text-destructive",
+        warning:
+          "border-warning/40 bg-warning/15 text-foreground [&>svg]:text-warning",
+        info: "border-info/30 bg-info/10 text-foreground [&>svg]:text-info",
+        announcement:
+          "border-primary/25 bg-primary/5 text-foreground [&>svg]:text-primary",
         destructive:
-          "bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current",
+          "border-destructive/30 bg-destructive/10 text-foreground [&>svg]:text-destructive",
       },
     },
     defaultVariants: {
@@ -19,18 +35,34 @@ const alertVariants = cva(
   },
 );
 
+const defaultIcons = {
+  success: CheckCircle2,
+  error: OctagonX,
+  warning: AlertTriangle,
+  info: Info,
+  announcement: Megaphone,
+  destructive: OctagonX,
+  default: Info,
+} as const;
+
 function Alert({
   className,
-  variant,
+  variant = "default",
+  children,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
+  const Icon = defaultIcons[variant ?? "default"];
+
   return (
     <div
       data-slot="alert"
       role="alert"
       className={cn(alertVariants({ variant }), className)}
       {...props}
-    />
+    >
+      <Icon aria-hidden="true" />
+      {children}
+    </div>
   );
 }
 
@@ -63,4 +95,4 @@ function AlertDescription({
   );
 }
 
-export { Alert, AlertTitle, AlertDescription };
+export { Alert, AlertTitle, AlertDescription, alertVariants };

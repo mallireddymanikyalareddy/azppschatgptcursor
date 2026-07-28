@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Calculator, Info } from "lucide-react";
-import { toast } from "sonner";
+import { Calculator } from "lucide-react";
 
+import { PageHeader } from "@/components/common/page-header";
 import {
   Accordion,
   AccordionContent,
@@ -30,8 +30,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChartPlaceholder } from "@/components/ui/chart-placeholder";
+import { ChartGrid, ChartPlaceholder } from "@/components/ui/chart-placeholder";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DataTable, type DataTableColumn } from "@/components/ui/data-table";
 import {
   Dialog,
   DialogContent,
@@ -51,10 +52,16 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { EmptyState } from "@/components/ui/empty-state";
+import { PresetEmptyState } from "@/components/ui/empty-states";
 import { ErrorState } from "@/components/ui/error-state";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  CardLoader,
+  InlineProgress,
+  PageLoader,
+  TableLoader,
+} from "@/components/ui/loaders";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import {
   Modal,
@@ -66,18 +73,11 @@ import {
   ModalTrigger,
 } from "@/components/ui/modal";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Progress } from "@/components/ui/progress";
 import { Radio, RadioItem } from "@/components/ui/radio";
 import { SearchBox } from "@/components/ui/search-box";
 import {
@@ -95,22 +95,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Switch } from "@/components/ui/switch";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import {
   Sidebar,
   SidebarContent,
@@ -125,6 +109,56 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Spinner } from "@/components/ui/spinner";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/toast";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+type DemoRow = {
+  id: string;
+  name: string;
+  status: string;
+  role: string;
+};
+
+const demoRows: DemoRow[] = [
+  { id: "1", name: "Alex Rivera", status: "Active", role: "Admin" },
+  { id: "2", name: "Sam Chen", status: "Invited", role: "Editor" },
+  { id: "3", name: "Jordan Lee", status: "Active", role: "Viewer" },
+  { id: "4", name: "Casey Kim", status: "Paused", role: "Editor" },
+  { id: "5", name: "Riley Park", status: "Active", role: "Admin" },
+  { id: "6", name: "Morgan Blake", status: "Invited", role: "Viewer" },
+];
+
+const demoColumns: DataTableColumn<DemoRow>[] = [
+  {
+    id: "name",
+    header: "Name",
+    sortable: true,
+    sortValue: (row) => row.name,
+    accessor: (row) => row.name,
+  },
+  {
+    id: "status",
+    header: "Status",
+    sortable: true,
+    sortValue: (row) => row.status,
+    accessor: (row) => <Badge variant="secondary">{row.status}</Badge>,
+  },
+  {
+    id: "role",
+    header: "Role",
+    sortable: true,
+    sortValue: (row) => row.role,
+    accessor: (row) => row.role,
+  },
+];
 
 function Section({
   title,
@@ -148,21 +182,37 @@ function Section({
 
 export default function DesignSystemPage() {
   const [checked, setChecked] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [tableLoading, setTableLoading] = useState(false);
 
   return (
-    <div className="container py-10">
-      <div className="mb-8 space-y-3">
-        <Badge variant="secondary">Design System</Badge>
-        <h1 className="text-display">AZPPS Component Library</h1>
-        <p className="text-body-lg text-muted-foreground max-w-3xl">
-          Reusable, accessible, dark-mode-ready primitives and patterns for the
-          AI-Powered Calculator Platform. No calculator business logic here —
-          this page is the living catalog for Sprint 2.
-        </p>
-      </div>
+    <div className="container py-8 md:py-10">
+      <PageHeader
+        eyebrow="Design System"
+        title="AZPPS Component Library"
+        description="Production-hardened primitives, tokens, and patterns for a minimal premium enterprise SaaS experience. No calculator business logic."
+        actions={
+          <Button
+            variant="outline"
+            onClick={() =>
+              toast.promise(
+                new Promise((resolve) => setTimeout(resolve, 1200)),
+                {
+                  loading: "Saving preferences…",
+                  success: "Preferences saved",
+                  error: "Could not save preferences",
+                },
+              )
+            }
+          >
+            Toast promise demo
+          </Button>
+        }
+      />
 
       <Tabs defaultValue="components" className="w-full">
-        <TabsList>
+        <TabsList className="w-full justify-start overflow-x-auto sm:w-auto">
           <TabsTrigger value="components">Components</TabsTrigger>
           <TabsTrigger value="tokens">Tokens</TabsTrigger>
         </TabsList>
@@ -170,7 +220,7 @@ export default function DesignSystemPage() {
         <TabsContent value="tokens" className="mt-6 space-y-6">
           <Section
             title="Color tokens"
-            description="Semantic colors mapped for light and dark themes with WCAG-minded contrast."
+            description="Semantic palette tuned for AZPPS brand identity and WCAG contrast."
           >
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {[
@@ -195,20 +245,22 @@ export default function DesignSystemPage() {
 
           <Section
             title="Typography"
-            description="Display through code roles with consistent size, weight, and tracking."
+            description="Fluid display hierarchy with readable body metrics."
           >
             <div className="space-y-3">
               <p className="text-display">Display</p>
               <h1>Heading 1</h1>
               <h2>Heading 2</h2>
               <h3>Heading 3</h3>
+              <h4>Heading 4</h4>
               <p className="text-body-lg">Body large supporting copy.</p>
-              <p>Body default supporting copy.</p>
+              <p>Body default supporting copy for long-form readability.</p>
               <p className="text-body-sm">Body small supporting copy.</p>
               <p className="text-caption text-muted-foreground">
                 CAPTION LABEL
               </p>
-              <code className="bg-muted rounded px-2 py-1 text-sm">
+              <p className="text-label">Form label style</p>
+              <code className="bg-muted rounded-md px-2 py-1 text-sm">
                 const result = calculate()
               </code>
             </div>
@@ -218,7 +270,7 @@ export default function DesignSystemPage() {
         <TabsContent value="components" className="mt-2">
           <Section
             title="Button"
-            description="Primary actions with variants and sizes. Supports asChild composition."
+            description="Consistent variants, sizes, hover, focus, and disabled states."
           >
             <div className="flex flex-wrap gap-2">
               <Button>Default</Button>
@@ -226,15 +278,40 @@ export default function DesignSystemPage() {
               <Button variant="outline">Outline</Button>
               <Button variant="ghost">Ghost</Button>
               <Button variant="destructive">Destructive</Button>
-              <Button variant="link">Link</Button>
-              <Button size="sm">Small</Button>
-              <Button size="lg">Large</Button>
+              <Button disabled>Disabled</Button>
             </div>
           </Section>
 
           <Section
-            title="Input / Textarea / Select / Search"
-            description="Form controls with focus rings, labels, and responsive widths."
+            title="Search"
+            description="Icon, clear action, loading state, and keyboard shortcut hint."
+          >
+            <div className="grid max-w-xl gap-3">
+              <SearchBox
+                value={searchValue}
+                showShortcut
+                loading={searchLoading}
+                placeholder="Search calculators…"
+                onChange={(event) => setSearchValue(event.target.value)}
+                onClear={() => setSearchValue("")}
+              />
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-fit"
+                onClick={() => {
+                  setSearchLoading(true);
+                  setTimeout(() => setSearchLoading(false), 900);
+                }}
+              >
+                Simulate search loading
+              </Button>
+            </div>
+          </Section>
+
+          <Section
+            title="Form controls"
+            description="Input, textarea, select, checkbox, radio, and switch."
           >
             <div className="grid max-w-xl gap-4">
               <div className="space-y-2">
@@ -245,27 +322,15 @@ export default function DesignSystemPage() {
                 <Label htmlFor="notes">Notes</Label>
                 <Textarea id="notes" placeholder="Add details…" />
               </div>
-              <div className="space-y-2">
-                <Label>Workspace</Label>
-                <Select defaultValue="personal">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select workspace" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="personal">Personal</SelectItem>
-                    <SelectItem value="team">Team</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <SearchBox placeholder="Search calculators…" />
-            </div>
-          </Section>
-
-          <Section
-            title="Checkbox / Radio / Switch"
-            description="Accessible selection controls with keyboard support."
-          >
-            <div className="flex flex-col gap-4">
+              <Select defaultValue="personal">
+                <SelectTrigger aria-label="Workspace">
+                  <SelectValue placeholder="Select workspace" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="personal">Personal</SelectItem>
+                  <SelectItem value="team">Team</SelectItem>
+                </SelectContent>
+              </Select>
               <div className="flex items-center gap-2">
                 <Checkbox
                   id="terms"
@@ -292,10 +357,37 @@ export default function DesignSystemPage() {
           </Section>
 
           <Section
-            title="Card / Badge / Avatar"
-            description="Content containers and status/identity indicators."
+            title="Data table"
+            description="Client-side sorting, column visibility, pagination, loading, and empty states."
           >
-            <Card className="max-w-md">
+            <div className="space-y-3">
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setTableLoading(true);
+                    setTimeout(() => setTableLoading(false), 1000);
+                  }}
+                >
+                  Simulate loading
+                </Button>
+              </div>
+              <DataTable
+                data={demoRows}
+                columns={demoColumns}
+                getRowId={(row) => row.id}
+                loading={tableLoading}
+                pageSize={3}
+              />
+            </div>
+          </Section>
+
+          <Section
+            title="Card / Badge / Avatar"
+            description="Content containers and status indicators."
+          >
+            <Card className="max-w-md shadow-sm">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle>Workspace</CardTitle>
@@ -322,19 +414,19 @@ export default function DesignSystemPage() {
           </Section>
 
           <Section
-            title="Dialog / Modal / Sheet / Drawer"
-            description="Overlay surfaces for focused tasks on desktop and mobile."
+            title="Overlays"
+            description="Dialog, modal alias, sheet, drawer, tooltip, and popover."
           >
             <div className="flex flex-wrap gap-2">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline">Open Dialog</Button>
+                  <Button variant="outline">Dialog</Button>
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Confirm action</DialogTitle>
                     <DialogDescription>
-                      This dialog uses the shared Dialog primitive.
+                      Shared dialog primitive with focus trapping.
                     </DialogDescription>
                   </DialogHeader>
                   <DialogFooter>
@@ -342,16 +434,15 @@ export default function DesignSystemPage() {
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
-
               <Modal>
                 <ModalTrigger asChild>
-                  <Button variant="outline">Open Modal</Button>
+                  <Button variant="outline">Modal</Button>
                 </ModalTrigger>
                 <ModalContent>
                   <ModalHeader>
                     <ModalTitle>Modal alias</ModalTitle>
                     <ModalDescription>
-                      Modal re-exports Dialog for enterprise naming.
+                      Semantic alias of Dialog for product naming.
                     </ModalDescription>
                   </ModalHeader>
                   <ModalFooter>
@@ -359,30 +450,26 @@ export default function DesignSystemPage() {
                   </ModalFooter>
                 </ModalContent>
               </Modal>
-
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="outline">Open Sheet</Button>
+                  <Button variant="outline">Sheet</Button>
                 </SheetTrigger>
                 <SheetContent>
                   <SheetHeader>
                     <SheetTitle>Sheet panel</SheetTitle>
-                    <SheetDescription>
-                      Side panel for settings and filters.
-                    </SheetDescription>
+                    <SheetDescription>Side panel pattern.</SheetDescription>
                   </SheetHeader>
                 </SheetContent>
               </Sheet>
-
               <Drawer>
                 <DrawerTrigger asChild>
-                  <Button variant="outline">Open Drawer</Button>
+                  <Button variant="outline">Drawer</Button>
                 </DrawerTrigger>
                 <DrawerContent>
                   <DrawerHeader>
                     <DrawerTitle>Drawer</DrawerTitle>
                     <DrawerDescription>
-                      Bottom sheet pattern for mobile-first flows.
+                      Mobile-first bottom sheet.
                     </DrawerDescription>
                   </DrawerHeader>
                   <DrawerFooter>
@@ -392,59 +479,131 @@ export default function DesignSystemPage() {
                   </DrawerFooter>
                 </DrawerContent>
               </Drawer>
-            </div>
-          </Section>
-
-          <Section
-            title="Tabs / Accordion / Tooltip / Popover"
-            description="Disclosure and contextual UI patterns."
-          >
-            <div className="grid gap-6 lg:grid-cols-2">
-              <Tabs defaultValue="one">
-                <TabsList>
-                  <TabsTrigger value="one">One</TabsTrigger>
-                  <TabsTrigger value="two">Two</TabsTrigger>
-                </TabsList>
-                <TabsContent value="one" className="text-sm">
-                  First tab panel content.
-                </TabsContent>
-                <TabsContent value="two" className="text-sm">
-                  Second tab panel content.
-                </TabsContent>
-              </Tabs>
-
-              <Accordion type="single" collapsible>
-                <AccordionItem value="item-1">
-                  <AccordionTrigger>What is AZPPS?</AccordionTrigger>
-                  <AccordionContent>
-                    An AI-powered calculator platform foundation.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon" aria-label="Info">
-                    <Info className="size-4" />
-                  </Button>
+                  <Button variant="outline">Tooltip</Button>
                 </TooltipTrigger>
                 <TooltipContent>Helpful tooltip copy</TooltipContent>
               </Tooltip>
-
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline">Open popover</Button>
+                  <Button variant="outline">Popover</Button>
                 </PopoverTrigger>
                 <PopoverContent className="text-sm">
-                  Popover content for lightweight overlays.
+                  Lightweight contextual content.
                 </PopoverContent>
               </Popover>
             </div>
           </Section>
 
           <Section
-            title="Table / Breadcrumb / Pagination"
-            description="Data display and navigation helpers."
+            title="Alerts & toasts"
+            description="Semantic alerts and toast helpers for product feedback."
+          >
+            <div className="grid gap-3">
+              <Alert variant="success">
+                <AlertTitle>Success</AlertTitle>
+                <AlertDescription>
+                  Changes were saved successfully.
+                </AlertDescription>
+              </Alert>
+              <Alert variant="error">
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>
+                  Something failed. Please retry.
+                </AlertDescription>
+              </Alert>
+              <Alert variant="warning">
+                <AlertTitle>Warning</AlertTitle>
+                <AlertDescription>
+                  Review this setting before continuing.
+                </AlertDescription>
+              </Alert>
+              <Alert variant="info">
+                <AlertTitle>Information</AlertTitle>
+                <AlertDescription>
+                  New design tokens are available.
+                </AlertDescription>
+              </Alert>
+              <Alert variant="announcement">
+                <AlertTitle>Announcement</AlertTitle>
+                <AlertDescription>
+                  Design system hardening is complete for Sprint 2.
+                </AlertDescription>
+              </Alert>
+              <div className="flex flex-wrap gap-2">
+                <Button size="sm" onClick={() => toast.success("Saved")}>
+                  Success toast
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => toast.error("Failed", "Please try again")}
+                >
+                  Error toast
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => toast.warning("Check inputs")}
+                >
+                  Warning toast
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => toast.loading("Working…")}
+                >
+                  Loading toast
+                </Button>
+              </div>
+            </div>
+          </Section>
+
+          <Section
+            title="Empty & error states"
+            description="Reusable presets for common product voids."
+          >
+            <div className="grid gap-4 lg:grid-cols-2">
+              <PresetEmptyState
+                preset="no-data"
+                action={<Button size="sm">Refresh</Button>}
+              />
+              <PresetEmptyState
+                preset="no-calculators"
+                action={<Button size="sm">Create calculator</Button>}
+              />
+              <PresetEmptyState preset="no-search-results" />
+              <PresetEmptyState preset="no-categories" />
+              <PresetEmptyState preset="no-activity" />
+              <ErrorState onRetry={() => toast.message("Retry clicked")} />
+            </div>
+          </Section>
+
+          <Section
+            title="Loading states"
+            description="Spinner, progress, skeletons, and specialized loaders."
+          >
+            <div className="grid gap-6">
+              <div className="flex items-center gap-4">
+                <Spinner size="sm" />
+                <Spinner />
+                <Spinner size="lg" />
+              </div>
+              <Progress value={64} label="Upload progress" />
+              <InlineProgress value={32} label="Indexing" />
+              <div className="grid gap-4 lg:grid-cols-2">
+                <CardLoader />
+                <TableLoader rows={3} columns={3} />
+              </div>
+              <LoadingSkeleton variant="form" className="max-w-md" />
+              <PageLoader className="min-h-[180px] rounded-xl border" />
+            </div>
+          </Section>
+
+          <Section
+            title="Navigation helpers"
+            description="Breadcrumb, accordion, and tabs."
           >
             <Breadcrumb>
               <BreadcrumbList>
@@ -457,90 +616,25 @@ export default function DesignSystemPage() {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Role</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Alex</TableCell>
-                  <TableCell>
-                    <Badge variant="secondary">Active</Badge>
-                  </TableCell>
-                  <TableCell>Admin</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Sam</TableCell>
-                  <TableCell>
-                    <Badge variant="outline">Invited</Badge>
-                  </TableCell>
-                  <TableCell>Editor</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#" isActive>
-                    1
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink href="#">2</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext href="#" />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+            <Accordion type="single" collapsible className="max-w-xl">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>What is AZPPS?</AccordionTrigger>
+                <AccordionContent>
+                  An AI-powered calculator platform foundation.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </Section>
 
           <Section
-            title="Alert / Toast / Empty / Error / Loading"
-            description="Feedback and asynchronous state patterns."
+            title="Sidebar & charts"
+            description="App shell navigation and chart foundation placeholders."
           >
-            <div className="grid gap-4">
-              <Alert>
-                <Info className="size-4" />
-                <AlertTitle>Heads up</AlertTitle>
-                <AlertDescription>
-                  Alerts communicate important inline status.
-                </AlertDescription>
-              </Alert>
-              <Button
-                variant="outline"
-                onClick={() => toast.success("Toast ready for product flows")}
-              >
-                Show toast
-              </Button>
-              <EmptyState
-                title="No calculators yet"
-                description="Create your first calculator when product features land."
-                action={<Button size="sm">Create</Button>}
-              />
-              <ErrorState onRetry={() => toast.message("Retry clicked")} />
-              <LoadingSkeleton variant="card" />
-            </div>
-          </Section>
-
-          <Section
-            title="Sidebar / Charts placeholder"
-            description="App shell navigation and future analytics surface."
-          >
-            <SidebarProvider className="min-h-[280px] rounded-xl border">
+            <SidebarProvider className="min-h-[280px] overflow-hidden rounded-xl border">
               <Sidebar collapsible="none" className="border-r">
                 <SidebarHeader className="p-3">
                   <div className="flex items-center gap-2 px-2 text-sm font-semibold">
-                    <Calculator className="size-4" />
+                    <Calculator className="size-4" aria-hidden="true" />
                     AZPPS
                   </div>
                 </SidebarHeader>
@@ -567,20 +661,14 @@ export default function DesignSystemPage() {
                   <SidebarTrigger />
                   <p className="text-sm font-medium">Inset content</p>
                 </div>
-                <ChartPlaceholder title="Usage trend" />
+                <ChartPlaceholder
+                  type="area"
+                  title="Usage trend"
+                  height={160}
+                />
               </SidebarInset>
             </SidebarProvider>
-          </Section>
-
-          <Section
-            title="Navbar / Footer"
-            description="Global chrome components are active in the main layout above and below this page."
-          >
-            <p className="text-muted-foreground text-sm">
-              <code>Navbar</code> and <code>Footer</code> render in{" "}
-              <code>MainLayout</code>. Theme toggle, search, and links are
-              included.
-            </p>
+            <ChartGrid className="mt-4" />
           </Section>
         </TabsContent>
       </Tabs>

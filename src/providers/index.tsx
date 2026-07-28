@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "@/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toast";
 
 type AppProvidersProps = {
   children: React.ReactNode;
