@@ -20,7 +20,7 @@ const MOCK_USERS: Array<AuthUser & { password: string }> = [
     name: "Demo User",
     password: "Password1!",
     emailVerified: true,
-    roles: ["user", "editor"],
+    roles: ["user", "editor", "admin"],
     createdAt: new Date("2026-01-01").toISOString(),
   },
   {

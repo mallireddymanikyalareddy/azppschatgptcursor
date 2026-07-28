@@ -8,6 +8,7 @@ Production-ready foundation for the AZPPS platform, built with Next.js 15, React
 - **UI:** React 19, Tailwind CSS 4, shadcn/ui, Framer Motion, Lucide React
 - **Validation:** Zod + React Hook Form
 - **Auth:** Mock authentication foundation (`/login`)
+- **Admin:** Enterprise shell + RBAC foundation (`/admin`)
 - **Theming:** next-themes (light / dark / system)
 - **Design System:** Tokens + shadcn/ui primitives (`/design-system`)
 - **Quality:** ESLint, Prettier, TypeScript (strict)
@@ -66,11 +67,14 @@ npm start
 src/
 ├── app/                    # Next.js App Router
 │   ├── (auth)/             # Auth pages (login, register, …)
+│   ├── (admin)/            # Admin shell routes under /admin
 │   ├── (main)/             # Main route group + /design-system catalog
 │   ├── layout.tsx          # Root layout, fonts, providers, metadata
 │   └── globals.css         # Tailwind v4 entry + token bridge
 ├── features/
-│   └── auth/               # Auth foundation (components, services, guards)
+│   ├── auth/               # Auth foundation (components, services, guards)
+│   ├── admin/              # Admin shell (layout, nav, dashboard mocks)
+│   └── rbac/               # Roles + permissions foundation
 ├── styles/                 # Design tokens, themes, base, utilities
 ├── design-system/          # Type-safe token maps
 ├── components/
@@ -83,7 +87,7 @@ src/
 └── types/                  # Shared TypeScript types
 ```
 
-See also: `docs/AUTH_FOUNDATION.md`, `docs/DESIGN_SYSTEM.md`.
+See also: `docs/AUTH_FOUNDATION.md`, `docs/DESIGN_SYSTEM.md`, `docs/ADMIN_SHELL.md`.
 
 ## Architecture Notes
 

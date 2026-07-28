@@ -3,6 +3,7 @@ import { motionJs } from "@/design-system/tokens/motion";
 export const APP_ROUTES = {
   home: "/",
   designSystem: "/design-system",
+  admin: "/admin",
   login: "/login",
   register: "/register",
   forgotPassword: "/forgot-password",

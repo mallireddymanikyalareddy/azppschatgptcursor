@@ -45,6 +45,7 @@ export const config = {
     "/content/:path*",
     "/seo/:path*",
     "/analytics/:path*",
+    "/admin",
     "/admin/:path*",
   ],
 };
