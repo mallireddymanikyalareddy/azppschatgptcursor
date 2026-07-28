@@ -71,7 +71,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     items: [
       {
         id: "calculators",
-        title: "Calculators",
+        title: "Calculator Library",
         href: ADMIN_ROUTES.calculators,
         icon: Gauge,
         permission: "calculator.view",
@@ -327,7 +327,7 @@ export type AdminBreadcrumbMeta = {
 /** Flat route → breadcrumb titles for active highlighting & crumbs. */
 export const ADMIN_BREADCRUMB_META: AdminBreadcrumbMeta[] = [
   { href: ADMIN_ROUTES.dashboard, title: "Dashboard" },
-  { href: ADMIN_ROUTES.calculators, title: "Calculators" },
+  { href: ADMIN_ROUTES.calculators, title: "Calculator Library" },
   {
     href: ADMIN_ROUTES.calculatorBuilder,
     title: "Calculator Builder",
@@ -396,8 +396,9 @@ export const ADMIN_PAGE_DEFINITIONS: AdminPageDefinition[] = [
   },
   {
     href: ADMIN_ROUTES.calculators,
-    title: "Calculators",
-    description: "Calculator catalog management placeholder.",
+    title: "Calculator Library",
+    description:
+      "Search, filter, and manage the full calculator catalog at scale.",
     eyebrow: "Calculator Management",
   },
   {

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
-import { AdminPlaceholderPage } from "@/features/admin";
+import { CalculatorLibraryPage } from "@/features/calculator-library";
 
 export const metadata: Metadata = {
-  title: "Calculators",
+  title: "Calculator Library",
 };
 
 export default function Page() {
-  return <AdminPlaceholderPage href="/admin/calculators" />;
+  return <CalculatorLibraryPage />;
 }
