@@ -8,6 +8,7 @@ type MainLayoutProps = {
 const navItems = [
   { title: "Home", href: "/" },
   { title: "Design System", href: "/design-system" },
+  { title: "Sign in", href: "/login" },
 ];
 
 const footerLinks = [

@@ -6,7 +6,8 @@ Production-ready foundation for the AZPPS platform, built with Next.js 15, React
 
 - **Framework:** Next.js 15 (App Router)
 - **UI:** React 19, Tailwind CSS 4, shadcn/ui, Framer Motion, Lucide React
-- **Validation:** Zod
+- **Validation:** Zod + React Hook Form
+- **Auth:** Mock authentication foundation (`/login`)
 - **Theming:** next-themes (light / dark / system)
 - **Design System:** Tokens + shadcn/ui primitives (`/design-system`)
 - **Quality:** ESLint, Prettier, TypeScript (strict)
@@ -64,28 +65,25 @@ npm start
 ```
 src/
 ├── app/                    # Next.js App Router
+│   ├── (auth)/             # Auth pages (login, register, …)
 │   ├── (main)/             # Main route group + /design-system catalog
 │   ├── layout.tsx          # Root layout, fonts, providers, metadata
-│   ├── loading.tsx         # Root loading UI
-│   ├── error.tsx           # Root error boundary
-│   ├── global-error.tsx    # Global error fallback
-│   ├── not-found.tsx       # 404 page
 │   └── globals.css         # Tailwind v4 entry + token bridge
+├── features/
+│   └── auth/               # Auth foundation (components, services, guards)
 ├── styles/                 # Design tokens, themes, base, utilities
 ├── design-system/          # Type-safe token maps
 ├── components/
 │   ├── common/             # Shared UI (loading, error displays)
 │   ├── layout/             # Navbar, footer, theme toggle, main layout
 │   └── ui/                 # Design system primitives
-├── config/                 # App configuration (env, metadata, fonts, site)
-├── constants/              # App-wide constants
-├── hooks/                  # Custom React hooks
-├── lib/
-│   ├── utils/              # Utility functions (cn, format, etc.)
-│   └── validations/        # Shared Zod schemas
-├── providers/              # React context providers
+├── middleware.ts           # Auth route guard foundation
+├── config/                 # App configuration
+├── providers/              # Theme + Auth providers
 └── types/                  # Shared TypeScript types
 ```
+
+See also: `docs/AUTH_FOUNDATION.md`, `docs/DESIGN_SYSTEM.md`.
 
 ## Architecture Notes
 
