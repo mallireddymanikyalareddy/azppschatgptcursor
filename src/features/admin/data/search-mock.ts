@@ -23,6 +23,13 @@ export const MOCK_SEARCH_RESULTS: GlobalSearchResult[] = [
     category: "Calculators",
   },
   {
+    id: "s2b",
+    title: "Calculator Builder",
+    subtitle: "Command · Create calculator definitions",
+    href: "/admin/calculators/builder",
+    category: "Commands",
+  },
+  {
     id: "s3",
     title: "Demo User",
     subtitle: "demo@azpps.com · Editor",

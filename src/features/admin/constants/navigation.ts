@@ -77,6 +77,13 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
         permission: "calculator.view",
       },
       {
+        id: "calculator-builder",
+        title: "Calculator Builder",
+        href: ADMIN_ROUTES.calculatorBuilder,
+        icon: Blocks,
+        permission: "calculator.create",
+      },
+      {
         id: "categories",
         title: "Categories",
         href: ADMIN_ROUTES.calculatorCategories,
@@ -322,6 +329,11 @@ export const ADMIN_BREADCRUMB_META: AdminBreadcrumbMeta[] = [
   { href: ADMIN_ROUTES.dashboard, title: "Dashboard" },
   { href: ADMIN_ROUTES.calculators, title: "Calculators" },
   {
+    href: ADMIN_ROUTES.calculatorBuilder,
+    title: "Calculator Builder",
+    parentHref: ADMIN_ROUTES.calculators,
+  },
+  {
     href: ADMIN_ROUTES.calculatorCategories,
     title: "Categories",
     parentHref: ADMIN_ROUTES.calculators,
@@ -386,6 +398,13 @@ export const ADMIN_PAGE_DEFINITIONS: AdminPageDefinition[] = [
     href: ADMIN_ROUTES.calculators,
     title: "Calculators",
     description: "Calculator catalog management placeholder.",
+    eyebrow: "Calculator Management",
+  },
+  {
+    href: ADMIN_ROUTES.calculatorBuilder,
+    title: "Calculator Builder",
+    description:
+      "Create calculator definitions without code and export engine-compatible JSON.",
     eyebrow: "Calculator Management",
   },
   {
