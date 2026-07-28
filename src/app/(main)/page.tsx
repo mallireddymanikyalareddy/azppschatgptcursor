@@ -24,13 +24,13 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
             <Button asChild size="lg">
-              <Link href="/admin">
-                Open Admin
+              <Link href="/calculators/home-loan-emi">
+                Home Loan EMI
                 <ArrowRight className="size-4" aria-hidden />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link href="/design-system">Design System</Link>
+              <Link href="/admin">Open Admin</Link>
             </Button>
             <Button asChild variant="ghost" size="lg">
               <Link href="/login">Sign in</Link>
@@ -43,8 +43,8 @@ export default function HomePage() {
             <Calculator className="size-5" aria-hidden="true" />
           </div>
           <p className="text-muted-foreground w-full text-sm leading-relaxed">
-            Foundation, auth, and admin shell are ready. Calculator business
-            features will land on this architecture next.
+            First production calculator is live — Home Loan EMI is driven
+            entirely from configuration via the platform engines.
           </p>
         </div>
       </div>

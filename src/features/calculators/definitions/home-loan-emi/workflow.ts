@@ -1,0 +1,205 @@
+import { OutputFormat } from "@/features/calculation-engine/constants/enums";
+import type { CalculatorWorkflowDefinition } from "@/features/calculation-engine/types";
+import type { FormulaProgram } from "@/features/formula-engine/types";
+
+/**
+ * Formula program for Home Loan EMI (reducing balance).
+ * Zero-rate edge case is handled by amortisation helpers in the runtime.
+ */
+export const homeLoanEmiProductionProgram: FormulaProgram = {
+  id: "prog_home_loan_emi_production",
+  name: "Home Loan EMI Production",
+  description: "monthlyRate = annualRate/12/100; emi = P*r*(1+r)^n/((1+r)^n-1)",
+  formulas: [
+    {
+      id: "f_monthly_rate",
+      key: "r",
+      name: "Monthly rate",
+      expression: "annualRate / 12 / 100",
+      variables: ["annualRate"],
+      precision: 12,
+    },
+    {
+      id: "f_emi",
+      key: "emi",
+      name: "Monthly EMI",
+      expression: "P * r * (1 + r)^n / ((1 + r)^n - 1)",
+      variables: ["P", "n"],
+      dependencies: ["f_monthly_rate"],
+      precision: 2,
+      currency: true,
+    },
+    {
+      id: "f_total_payment",
+      key: "totalPayment",
+      name: "Total payment",
+      expression: "emi * n",
+      dependencies: ["f_emi"],
+      precision: 2,
+      currency: true,
+    },
+    {
+      id: "f_total_interest",
+      key: "totalInterest",
+      name: "Interest paid",
+      expression: "totalPayment - P",
+      variables: ["P"],
+      dependencies: ["f_total_payment"],
+      precision: 2,
+      currency: true,
+    },
+    {
+      id: "f_interest_pct",
+      key: "interestPercentage",
+      name: "Interest percentage",
+      expression: "totalInterest / P * 100",
+      variables: ["P"],
+      dependencies: ["f_total_interest"],
+      precision: 2,
+      percentage: true,
+    },
+    {
+      id: "f_principal_pct",
+      key: "principalPercentage",
+      name: "Principal percentage",
+      expression: "P / totalPayment * 100",
+      variables: ["P"],
+      dependencies: ["f_total_payment"],
+      precision: 2,
+      percentage: true,
+    },
+  ],
+};
+
+/** Calculation workflow — inputs aligned with production form mapping. */
+export const homeLoanEmiProductionWorkflow: CalculatorWorkflowDefinition = {
+  id: "calc_home_loan_emi",
+  slug: "home-loan-emi",
+  name: "Home Loan EMI",
+  description: "Production EMI workflow with derived cost metrics.",
+  inputs: [
+    {
+      name: "P",
+      label: "Principal (net of prepayment)",
+      required: true,
+      min: 1,
+      max: 100000000,
+      coerceNumber: true,
+    },
+    {
+      name: "annualRate",
+      label: "Annual interest rate",
+      required: true,
+      min: 0,
+      max: 30,
+      coerceNumber: true,
+    },
+    {
+      name: "n",
+      label: "Tenure (months)",
+      required: true,
+      min: 1,
+      max: 480,
+      coerceNumber: true,
+    },
+    {
+      name: "processingFeeInput",
+      label: "Processing fee",
+      required: false,
+      optional: true,
+      defaultValue: 0,
+      min: 0,
+      coerceNumber: true,
+    },
+  ],
+  program: homeLoanEmiProductionProgram,
+  derived: [
+    {
+      id: "f_processing_fee_passthrough",
+      key: "processingFee",
+      name: "Processing fee",
+      expression: "processingFeeInput",
+      variables: ["processingFeeInput"],
+      precision: 2,
+      currency: true,
+    },
+    {
+      id: "f_effective_cost",
+      key: "effectiveLoanCost",
+      name: "Effective loan cost",
+      expression: "totalPayment + processingFeeInput",
+      variables: ["processingFeeInput"],
+      precision: 2,
+      currency: true,
+    },
+    {
+      id: "f_principal_out",
+      key: "principal",
+      name: "Principal",
+      expression: "P",
+      variables: ["P"],
+      precision: 2,
+      currency: true,
+    },
+  ],
+  outputs: [
+    {
+      key: "emi",
+      label: "Monthly EMI",
+      format: OutputFormat.Currency,
+      currency: "INR",
+      precision: 2,
+    },
+    {
+      key: "principal",
+      label: "Principal",
+      format: OutputFormat.Currency,
+      currency: "INR",
+      precision: 2,
+    },
+    {
+      key: "totalInterest",
+      label: "Interest paid",
+      format: OutputFormat.Currency,
+      currency: "INR",
+      precision: 2,
+    },
+    {
+      key: "totalPayment",
+      label: "Total payment",
+      format: OutputFormat.Currency,
+      currency: "INR",
+      precision: 2,
+    },
+    {
+      key: "processingFee",
+      label: "Processing fee",
+      format: OutputFormat.Currency,
+      currency: "INR",
+      precision: 2,
+    },
+    {
+      key: "effectiveLoanCost",
+      label: "Effective loan cost",
+      format: OutputFormat.Currency,
+      currency: "INR",
+      precision: 2,
+    },
+    {
+      key: "interestPercentage",
+      label: "Interest percentage",
+      format: OutputFormat.Percentage,
+      precision: 2,
+    },
+    {
+      key: "principalPercentage",
+      label: "Principal percentage",
+      format: OutputFormat.Percentage,
+      precision: 2,
+    },
+  ],
+  metadata: {
+    schemaVersion: "1.0.0",
+    definitionVersion: "1.0.0",
+  },
+};

@@ -8,3 +8,4 @@ export type * from "@/features/calculators/types";
 export type * from "@/features/calculators/repositories";
 export type * from "@/features/calculators/services";
 export * from "@/features/calculators/data";
+export * from "@/features/calculators/definitions";
