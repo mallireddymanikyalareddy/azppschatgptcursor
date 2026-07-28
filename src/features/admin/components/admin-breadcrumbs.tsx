@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
@@ -22,20 +23,22 @@ export function AdminBreadcrumbs() {
     <Breadcrumb>
       <BreadcrumbList>
         {crumbs.map((crumb, index) => (
-          <BreadcrumbItem key={crumb.href}>
+          <Fragment key={crumb.href}>
             {index > 0 ? (
               <BreadcrumbSeparator>
                 <ChevronRight className="size-3.5" aria-hidden />
               </BreadcrumbSeparator>
             ) : null}
-            {crumb.current ? (
-              <BreadcrumbPage>{crumb.title}</BreadcrumbPage>
-            ) : (
-              <BreadcrumbLink asChild>
-                <Link href={crumb.href}>{crumb.title}</Link>
-              </BreadcrumbLink>
-            )}
-          </BreadcrumbItem>
+            <BreadcrumbItem>
+              {crumb.current ? (
+                <BreadcrumbPage>{crumb.title}</BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink asChild>
+                  <Link href={crumb.href}>{crumb.title}</Link>
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+          </Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
