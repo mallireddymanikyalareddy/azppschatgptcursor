@@ -22,14 +22,14 @@ export function Navbar({
   return (
     <header
       className={cn(
-        "border-border/40 bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-[var(--z-sticky)] w-full border-b backdrop-blur",
+        "border-border/60 bg-background/80 supports-[backdrop-filter]:bg-background/70 sticky top-0 z-[var(--z-sticky)] w-full border-b backdrop-blur-xl",
         className,
       )}
     >
-      <div className="container flex h-16 items-center gap-4">
+      <div className="container flex h-14 items-center gap-4">
         <Link
           href="/"
-          className="text-foreground shrink-0 text-lg font-semibold tracking-tight transition-opacity hover:opacity-80"
+          className="text-foreground shrink-0 text-[0.95rem] font-semibold tracking-tight transition-opacity hover:opacity-80"
           aria-label={`${siteConfig.name} home`}
         >
           {siteConfig.name}
@@ -38,13 +38,13 @@ export function Navbar({
         {items.length > 0 ? (
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-1 md:flex"
+            className="hidden items-center gap-0.5 md:flex"
           >
             {items.map((item) =>
               item.disabled ? (
                 <span
                   key={item.href}
-                  className="text-muted-foreground cursor-not-allowed px-3 py-2 text-sm"
+                  className="text-muted-foreground cursor-not-allowed px-3 py-1.5 text-sm"
                 >
                   {item.title}
                 </span>
@@ -52,7 +52,7 @@ export function Navbar({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-muted-foreground hover:text-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
+                  className="text-muted-foreground hover:text-foreground hover:bg-accent/70 rounded-md px-3 py-1.5 text-sm font-medium transition-colors"
                   {...(item.external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
@@ -64,10 +64,10 @@ export function Navbar({
           </nav>
         ) : null}
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
           {showSearch ? (
             <SearchBox
-              containerClassName="hidden w-56 lg:block"
+              containerClassName="hidden w-52 lg:block"
               placeholder="Search…"
               showShortcut
             />

@@ -62,14 +62,14 @@ export function AdminGlobalSearch() {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="text-muted-foreground relative h-9 w-9 justify-start gap-2 px-0 sm:w-56 sm:px-3"
+          className="text-muted-foreground relative h-8 w-8 justify-start gap-2 px-0 sm:h-8 sm:w-52 sm:px-3"
           aria-label="Open global search"
         >
-          <Search className="size-4 shrink-0 sm:mr-0" aria-hidden />
+          <Search className="size-3.5 shrink-0 sm:mr-0" aria-hidden />
           <span className="hidden flex-1 text-left text-sm sm:inline">
             Search…
           </span>
-          <kbd className="bg-muted pointer-events-none absolute top-1.5 right-1.5 hidden h-6 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none sm:flex">
+          <kbd className="bg-muted/80 text-muted-foreground pointer-events-none absolute top-1 right-1.5 hidden h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium select-none sm:flex">
             ⌘K
           </kbd>
         </Button>

@@ -6,9 +6,9 @@ export function AdminFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="text-muted-foreground border-t px-4 py-3 text-xs sm:px-6">
+    <footer className="text-muted-foreground border-t px-4 py-3 text-[11px] sm:px-6">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-        <p>© {year} AZPPS Admin. Enterprise shell foundation.</p>
+        <p>© {year} AZPPS Admin</p>
         <nav aria-label="Admin footer" className="flex gap-3">
           <Link
             href={ADMIN_ROUTES.settings}

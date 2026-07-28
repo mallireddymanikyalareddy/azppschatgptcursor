@@ -16,22 +16,19 @@ export function PageHeader({
   className,
 }: PageHeaderProps) {
   return (
-    <div
-      className={cn(
-        "brand-wash border-border/60 -mx-4 mb-8 border-b px-4 py-8 sm:-mx-0 sm:rounded-2xl sm:border sm:px-8",
-        className,
-      )}
-    >
+    <div className={cn("border-border/70 mb-8 border-b pb-6", className)}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-2">
           {eyebrow ? (
-            <p className="text-caption text-primary font-medium tracking-wide uppercase">
+            <p className="text-caption text-muted-foreground font-medium tracking-wide uppercase">
               {eyebrow}
             </p>
           ) : null}
-          <h1 className="text-display text-foreground">{title}</h1>
+          <h1 className="text-foreground text-2xl font-semibold tracking-tight sm:text-[1.75rem]">
+            {title}
+          </h1>
           {description ? (
-            <p className="text-body-lg text-muted-foreground max-w-2xl">
+            <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed sm:text-[0.9375rem]">
               {description}
             </p>
           ) : null}

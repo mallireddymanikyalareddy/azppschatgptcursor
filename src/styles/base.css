@@ -5,6 +5,7 @@
 
   html {
     scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -25,12 +26,18 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-size: var(--text-body);
     line-height: var(--leading-body);
+    font-feature-settings: "ss01" on, "cv11" on;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 28%, transparent);
+    color: var(--foreground);
   }
 
   h1 {
     font-size: var(--text-h1);
     line-height: var(--leading-h1);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-semibold);
     letter-spacing: var(--tracking-tight);
   }
 
@@ -74,5 +81,10 @@
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
+  }
+
+  /* Prefer native thin scrollbars in admin chrome */
+  .scrollbar-thin {
+    scrollbar-width: thin;
   }
 }

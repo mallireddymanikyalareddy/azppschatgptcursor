@@ -27,7 +27,7 @@
 @utility text-display {
   font-size: var(--text-display);
   line-height: var(--leading-display);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: var(--tracking-display);
 }
 
@@ -60,8 +60,19 @@
 
 @utility brand-wash {
   background-image: var(--brand-wash);
+  background-color: var(--surface);
 }
 
 @utility section-y {
   padding-block: var(--space-3xl);
+}
+
+@utility ui-panel {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+@utility hairline {
+  box-shadow: 0 0 0 1px var(--border);
 }

@@ -15,9 +15,9 @@ export const motionTokens = {
 /** Framer Motion / JS-friendly values (seconds + cubic-bezier arrays). */
 export const motionJs = {
   duration: {
-    fast: 0.15,
-    normal: 0.3,
-    slow: 0.5,
+    fast: 0.12,
+    normal: 0.18,
+    slow: 0.28,
   },
   ease: {
     standard: [0.25, 0.1, 0.25, 1] as const,

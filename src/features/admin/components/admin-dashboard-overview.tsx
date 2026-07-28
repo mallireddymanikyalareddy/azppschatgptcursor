@@ -19,13 +19,13 @@ export function AdminDashboardOverview() {
   const { roleDetails, permissions } = useRbac();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-7">
       <PageHeader
         eyebrow="Overview"
         title="Dashboard"
         description="Enterprise operations overview with mock metrics. Connect real data sources in a later sprint."
         actions={
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5">
             {roleDetails.map((role) => (
               <Badge key={role.id} variant="secondary">
                 {role.name}
@@ -37,19 +37,24 @@ export function AdminDashboardOverview() {
       />
 
       <section aria-label="Key metrics">
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {MOCK_DASHBOARD_STATS.map((stat) => (
-            <Card key={stat.id}>
-              <CardHeader className="pb-2">
-                <CardDescription>{stat.label}</CardDescription>
-                <CardTitle className="text-3xl tabular-nums">
+            <Card
+              key={stat.id}
+              className="hover:border-border/90 hover:bg-card/80 gap-3 py-4 transition-colors"
+            >
+              <CardHeader className="pb-0">
+                <CardDescription className="text-xs tracking-wide uppercase">
+                  {stat.label}
+                </CardDescription>
+                <CardTitle className="font-mono text-3xl tracking-tight tabular-nums">
                   {stat.value}
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-muted-foreground space-y-1 text-sm">
                 <p>{stat.hint}</p>
                 {stat.trend ? (
-                  <p className="text-foreground/80 text-xs">{stat.trend}</p>
+                  <p className="text-foreground/75 text-xs">{stat.trend}</p>
                 ) : null}
               </CardContent>
             </Card>
@@ -58,27 +63,29 @@ export function AdminDashboardOverview() {
       </section>
 
       <section aria-label="Recent activity">
-        <Card>
-          <CardHeader>
+        <Card className="gap-0 py-0">
+          <CardHeader className="border-b py-4">
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>
               Mock timeline of platform events. No live feed connected.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0">
             <ul className="divide-border divide-y">
               {MOCK_RECENT_ACTIVITY.map((item) => (
                 <li
                   key={item.id}
-                  className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between"
+                  className="hover:bg-muted/30 flex flex-col gap-1 px-5 py-3.5 transition-colors sm:flex-row sm:items-center sm:justify-between"
                 >
-                  <div>
-                    <p className="text-sm font-medium">{item.title}</p>
+                  <div className="border-primary/40 min-w-0 border-l-2 pl-3">
+                    <p className="text-sm font-medium tracking-tight">
+                      {item.title}
+                    </p>
                     <p className="text-muted-foreground text-xs">
                       {item.detail}
                     </p>
                   </div>
-                  <time className="text-muted-foreground text-xs whitespace-nowrap">
+                  <time className="text-muted-foreground font-mono text-[11px] whitespace-nowrap">
                     {item.time}
                   </time>
                 </li>

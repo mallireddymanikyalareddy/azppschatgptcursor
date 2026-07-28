@@ -27,14 +27,14 @@ export function AdminShell({ children }: AdminShellProps) {
             Skip to content
           </a>
           <AdminSidebar />
-          <SidebarInset className="flex min-h-svh flex-col">
+          <SidebarInset className="bg-background flex min-h-svh flex-col">
             <AdminHeader />
             <main
               id="admin-main"
               tabIndex={-1}
-              className="bg-background flex-1 overflow-y-auto outline-none"
+              className="flex-1 scrollbar-thin overflow-y-auto outline-none"
             >
-              <div className="mx-auto w-full max-w-[1400px] px-4 py-6 sm:px-6">
+              <div className="mx-auto w-full max-w-[1280px] px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
                 {children}
               </div>
             </main>

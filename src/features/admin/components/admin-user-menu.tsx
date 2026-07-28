@@ -41,7 +41,7 @@ export function AdminUserMenu() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="h-9 gap-2 px-2"
+          className="h-8 gap-2 px-1.5"
           aria-label="Open user menu"
         >
           <Avatar className="size-7">

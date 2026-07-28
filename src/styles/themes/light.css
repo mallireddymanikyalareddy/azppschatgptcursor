@@ -1,52 +1,51 @@
-/* Light theme — AZPPS premium enterprise palette (Stripe/Linear inspired). */
+/* Light theme — polished Stripe / Notion companion to dark-first defaults. */
 
 :root {
-  --background: oklch(0.992 0.003 255);
-  --foreground: oklch(0.18 0.025 255);
-  --surface: oklch(0.98 0.006 255);
-  --surface-foreground: oklch(0.18 0.025 255);
+  --background: oklch(0.985 0.004 250);
+  --foreground: oklch(0.2 0.02 260);
+  --surface: oklch(0.975 0.006 250);
+  --surface-foreground: oklch(0.2 0.02 260);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.025 255);
+  --card-foreground: oklch(0.2 0.02 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.025 255);
+  --popover-foreground: oklch(0.2 0.02 260);
 
-  /* Deep ink-blue primary */
-  --primary: oklch(0.4 0.12 255);
-  --primary-foreground: oklch(0.99 0.004 255);
-  --secondary: oklch(0.955 0.01 255);
-  --secondary-foreground: oklch(0.28 0.04 255);
-  /* Cool accent for highlights */
-  --accent: oklch(0.94 0.03 230);
-  --accent-foreground: oklch(0.32 0.08 255);
+  /* Deep ink primary */
+  --primary: oklch(0.38 0.1 250);
+  --primary-foreground: oklch(0.99 0.004 250);
+  --secondary: oklch(0.96 0.008 250);
+  --secondary-foreground: oklch(0.28 0.03 260);
+  --accent: oklch(0.955 0.015 230);
+  --accent-foreground: oklch(0.3 0.06 250);
 
-  --muted: oklch(0.965 0.008 255);
-  --muted-foreground: oklch(0.48 0.025 255);
-  --border: oklch(0.905 0.012 255);
-  --input: oklch(0.905 0.012 255);
-  --ring: oklch(0.5 0.12 255);
+  --muted: oklch(0.965 0.006 250);
+  --muted-foreground: oklch(0.48 0.02 260);
+  --border: oklch(0.9 0.01 250);
+  --input: oklch(0.9 0.01 250);
+  --ring: oklch(0.48 0.1 250);
 
-  --success: oklch(0.52 0.13 155);
+  --success: oklch(0.5 0.12 155);
   --success-foreground: oklch(0.99 0.01 155);
-  --warning: oklch(0.75 0.13 80);
+  --warning: oklch(0.74 0.13 80);
   --warning-foreground: oklch(0.28 0.05 80);
-  --destructive: oklch(0.52 0.19 25);
+  --destructive: oklch(0.5 0.18 25);
   --destructive-foreground: oklch(0.99 0.01 25);
-  --info: oklch(0.52 0.11 250);
+  --info: oklch(0.5 0.1 250);
   --info-foreground: oklch(0.99 0.01 250);
 
-  /* Subtle brand wash for headers */
-  --brand-wash: linear-gradient(
-    180deg,
-    oklch(0.97 0.02 255) 0%,
-    oklch(0.992 0.003 255) 100%
-  );
+  --brand-wash: radial-gradient(
+      100% 70% at 0% 0%,
+      oklch(0.94 0.03 230 / 0.7) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, oklch(0.975 0.01 250) 0%, oklch(0.985 0.004 250) 100%);
 
-  --sidebar: oklch(0.985 0.006 255);
-  --sidebar-foreground: oklch(0.28 0.04 255);
-  --sidebar-primary: oklch(0.4 0.12 255);
-  --sidebar-primary-foreground: oklch(0.99 0.004 255);
-  --sidebar-accent: oklch(0.955 0.01 255);
-  --sidebar-accent-foreground: oklch(0.28 0.04 255);
-  --sidebar-border: oklch(0.905 0.012 255);
-  --sidebar-ring: oklch(0.5 0.12 255);
+  --sidebar: oklch(0.98 0.005 250);
+  --sidebar-foreground: oklch(0.3 0.025 260);
+  --sidebar-primary: oklch(0.38 0.1 250);
+  --sidebar-primary-foreground: oklch(0.99 0.004 250);
+  --sidebar-accent: oklch(0.955 0.01 250);
+  --sidebar-accent-foreground: oklch(0.28 0.03 260);
+  --sidebar-border: oklch(0.9 0.01 250);
+  --sidebar-ring: oklch(0.48 0.1 250);
 }

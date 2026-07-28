@@ -21,23 +21,25 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "border-border bg-surface flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed px-6 py-12 text-center shadow-xs",
+        "border-border/80 bg-card/40 flex flex-col items-center justify-center gap-4 rounded-lg border px-6 py-14 text-center",
         className,
       )}
       role="status"
     >
-      <div className="bg-muted text-muted-foreground flex size-12 items-center justify-center rounded-full">
+      <div className="bg-muted/80 text-muted-foreground flex size-11 items-center justify-center rounded-lg">
         <Icon className="size-5" aria-hidden="true" />
       </div>
-      <div className="space-y-1">
-        <h3 className="text-foreground text-base font-semibold">{title}</h3>
+      <div className="space-y-1.5">
+        <h3 className="text-foreground text-sm font-semibold tracking-tight">
+          {title}
+        </h3>
         {description ? (
-          <p className="text-muted-foreground max-w-sm text-sm">
+          <p className="text-muted-foreground mx-auto max-w-sm text-sm leading-relaxed">
             {description}
           </p>
         ) : null}
       </div>
-      {action ? <div className="mt-2">{action}</div> : null}
+      {action ? <div className="mt-1">{action}</div> : null}
     </div>
   );
 }

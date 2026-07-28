@@ -24,7 +24,7 @@ export function AdminNotifications() {
         <Button
           variant="ghost"
           size="icon"
-          className="relative size-9"
+          className="relative size-8"
           aria-label={
             unread > 0 ? `Notifications, ${unread} unread` : "Notifications"
           }
@@ -32,11 +32,9 @@ export function AdminNotifications() {
           <Bell className="size-4" aria-hidden />
           {unread > 0 ? (
             <span
-              className="bg-primary text-primary-foreground absolute top-1.5 right-1.5 flex size-4 items-center justify-center rounded-full text-[10px] font-medium"
+              className="bg-primary absolute top-1.5 right-1.5 size-1.5 rounded-full"
               aria-hidden
-            >
-              {unread}
-            </span>
+            />
           ) : null}
         </Button>
       </PopoverTrigger>

@@ -29,7 +29,7 @@ export function ThemeToggle() {
         size="icon"
         aria-label="Toggle theme"
         disabled
-        className="size-9"
+        className="size-8"
       >
         <Sun className="size-4" />
       </Button>
@@ -46,7 +46,7 @@ export function ThemeToggle() {
           variant="ghost"
           size="icon"
           aria-label="Toggle theme"
-          className="size-9"
+          className="size-8"
         >
           <ActiveIcon className="size-4" />
         </Button>

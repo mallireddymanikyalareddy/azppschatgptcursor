@@ -17,7 +17,7 @@ const AdminGlobalSearch = dynamic(
     ),
   {
     ssr: false,
-    loading: () => <Skeleton className="h-9 w-9 sm:w-56" />,
+    loading: () => <Skeleton className="h-8 w-8 sm:w-52" />,
   },
 );
 
@@ -28,23 +28,23 @@ const AdminNotifications = dynamic(
     ),
   {
     ssr: false,
-    loading: () => <Skeleton className="size-9 rounded-md" />,
+    loading: () => <Skeleton className="size-8 rounded-md" />,
   },
 );
 
 export function AdminHeader() {
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-20 border-b backdrop-blur">
+    <header className="bg-background/85 supports-[backdrop-filter]:bg-background/70 sticky top-0 z-20 border-b backdrop-blur-xl">
       <div className="flex h-14 items-center gap-2 px-3 sm:px-4">
-        <SidebarTrigger className="size-9" />
+        <SidebarTrigger className="size-8" />
         <Separator
           orientation="vertical"
-          className="mx-1 hidden h-6 sm:block"
+          className="mx-1 hidden h-5 sm:block"
         />
         <div className="hidden min-w-0 flex-1 md:block">
           <AdminBreadcrumbs />
         </div>
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+        <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
           <AdminGlobalSearch />
           <AdminQuickActions />
           <ThemeToggle />
@@ -52,7 +52,7 @@ export function AdminHeader() {
           <AdminUserMenu />
         </div>
       </div>
-      <div className="border-t px-3 py-2 md:hidden">
+      <div className="border-border/60 border-t px-3 py-2 md:hidden">
         <AdminBreadcrumbs />
       </div>
     </header>

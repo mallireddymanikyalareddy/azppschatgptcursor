@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PanelLeft } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sidebar,
@@ -38,16 +36,16 @@ export function AdminSidebar() {
 
   return (
     <Sidebar collapsible="icon" variant="sidebar">
-      <SidebarHeader className="border-sidebar-border border-b">
-        <div className="flex items-center gap-2 px-2 py-1.5">
+      <SidebarHeader className="border-sidebar-border h-14 justify-center border-b">
+        <div className="flex items-center gap-2.5 px-2">
           <Link
             href={ADMIN_ROUTES.dashboard}
-            className="flex min-w-0 flex-1 items-center gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
+            className="flex min-w-0 flex-1 items-center gap-2.5 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]"
             onClick={() => {
               if (isMobile) setOpenMobile(false);
             }}
           >
-            <span className="bg-primary text-primary-foreground flex size-8 shrink-0 items-center justify-center rounded-md text-xs font-semibold">
+            <span className="bg-foreground text-background flex size-7 shrink-0 items-center justify-center rounded-md text-[10px] font-bold tracking-tight">
               AZ
             </span>
             <span className="truncate text-sm font-semibold tracking-tight group-data-[collapsible=icon]:hidden">
@@ -60,8 +58,10 @@ export function AdminSidebar() {
       <SidebarContent>
         <ScrollArea className="h-full">
           {groups.map((group) => (
-            <SidebarGroup key={group.id}>
-              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+            <SidebarGroup key={group.id} className="py-2">
+              <SidebarGroupLabel className="text-muted-foreground/80 text-[11px] font-medium tracking-wide uppercase">
+                {group.label}
+              </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {group.items.map((item) => {
@@ -73,6 +73,7 @@ export function AdminSidebar() {
                           asChild
                           isActive={active}
                           tooltip={item.title}
+                          className="data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground"
                         >
                           <Link
                             href={item.href}
@@ -96,27 +97,11 @@ export function AdminSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="border-sidebar-border border-t">
-        <p className="text-muted-foreground px-2 py-1 text-[11px] group-data-[collapsible=icon]:hidden">
-          Admin shell · mock RBAC
+        <p className="text-muted-foreground/80 px-2 py-1.5 text-[10px] tracking-wide uppercase group-data-[collapsible=icon]:hidden">
+          Admin shell
         </p>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
-}
-
-export function AdminSidebarCollapseControl() {
-  const { toggleSidebar } = useSidebar();
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="size-9"
-      onClick={toggleSidebar}
-      aria-label="Toggle sidebar"
-    >
-      <PanelLeft className="size-4" aria-hidden />
-    </Button>
   );
 }
