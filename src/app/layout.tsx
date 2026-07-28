@@ -12,11 +12,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${fontVariables} h-full`}>
-      <body className="min-h-full bg-background font-sans text-foreground antialiased">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${fontVariables} h-full`}
+    >
+      <body className="bg-background text-foreground min-h-full font-sans antialiased">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+          className="focus:bg-primary focus:text-primary-foreground sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:px-4 focus:py-2"
         >
           Skip to main content
         </a>

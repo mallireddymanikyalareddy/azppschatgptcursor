@@ -10,9 +10,9 @@ export function SiteFooter({ className }: SiteFooterProps) {
 
   return (
     <footer
-      className={cn("border-t border-border/40 bg-background", className)}
+      className={cn("border-border/40 bg-background border-t", className)}
     >
-      <div className="container flex flex-col gap-2 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+      <div className="text-muted-foreground container flex flex-col gap-2 py-8 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p>
           © {year} {siteConfig.name}. All rights reserved.
         </p>

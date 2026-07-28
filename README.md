@@ -48,15 +48,15 @@ npm start
 
 ## Available Scripts
 
-| Script            | Description                          |
-| ----------------- | ------------------------------------ |
-| `npm run dev`     | Start dev server with Turbopack      |
-| `npm run build`   | Create production build              |
-| `npm start`       | Serve production build               |
-| `npm run lint`    | Run ESLint                           |
-| `npm run lint:fix`| Fix ESLint issues                    |
-| `npm run format`  | Format code with Prettier            |
-| `npm run typecheck` | Run TypeScript type checking       |
+| Script              | Description                     |
+| ------------------- | ------------------------------- |
+| `npm run dev`       | Start dev server with Turbopack |
+| `npm run build`     | Create production build         |
+| `npm start`         | Serve production build          |
+| `npm run lint`      | Run ESLint                      |
+| `npm run lint:fix`  | Fix ESLint issues               |
+| `npm run format`    | Format code with Prettier       |
+| `npm run typecheck` | Run TypeScript type checking    |
 
 ## Project Structure
 
