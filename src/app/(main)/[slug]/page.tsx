@@ -31,8 +31,8 @@ export async function generateMetadata({
 }
 
 /**
- * Generic calculator route — resolves definition by slug.
- * No calculator-specific React components.
+ * Root slug calculator route — e.g. /home-loan-emi.
+ * Only registered calculator slugs resolve; everything else 404s.
  */
 export default async function CalculatorSlugPage({ params }: PageProps) {
   const { slug } = await params;

@@ -24,7 +24,7 @@ export default function HomePage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
             <Button asChild size="lg">
-              <Link href="/calculators/home-loan-emi">
+              <Link href="/home-loan-emi">
                 Home Loan EMI
                 <ArrowRight className="size-4" aria-hidden />
               </Link>

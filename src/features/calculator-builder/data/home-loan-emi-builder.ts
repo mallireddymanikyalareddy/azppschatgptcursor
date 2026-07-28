@@ -213,7 +213,7 @@ export const homeLoanEmiBuilderDefinition: CalculatorBuilderDefinition = {
     title: "Home Loan EMI Calculator",
     description: "Calculate EMI, total interest, and total payment.",
     keywords: ["emi", "home loan", "mortgage"],
-    canonical: "https://azpps.example/calculators/home-loan-emi",
+    canonical: "https://azpps.example/home-loan-emi",
     ogTitle: "Home Loan EMI Calculator",
     ogDescription: "Estimate your monthly home loan EMI.",
     schemaPlaceholder: { "@type": "WebApplication", name: "Home Loan EMI" },
