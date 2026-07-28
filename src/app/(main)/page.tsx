@@ -19,14 +19,14 @@ export default function HomePage() {
           {siteConfig.description}
         </p>
         <p className="text-muted-foreground text-sm">
-          Production foundation is ready. Business features will be built on
-          this scalable architecture.
+          Production foundation and design system are ready. Calculator business
+          features will be built on this architecture next.
         </p>
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-3">
         <Button asChild size="lg">
-          <Link href="/">Get Started</Link>
+          <Link href="/design-system">View Design System</Link>
         </Button>
         <Button asChild variant="outline" size="lg">
           <a
