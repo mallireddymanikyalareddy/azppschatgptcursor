@@ -38,11 +38,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="border-border/80 bg-card/60 mx-auto mt-14 flex max-w-xl flex-col items-center gap-3 rounded-xl border px-6 py-8 text-center backdrop-blur-sm">
+        <div className="border-border/80 bg-card/60 mx-auto mt-14 flex w-full max-w-xl flex-col items-center gap-3 rounded-xl border px-6 py-8 text-center backdrop-blur-sm">
           <div className="bg-muted text-foreground/80 flex size-11 items-center justify-center rounded-lg">
             <Calculator className="size-5" aria-hidden="true" />
           </div>
-          <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
+          <p className="text-muted-foreground w-full text-sm leading-relaxed">
             Foundation, auth, and admin shell are ready. Calculator business
             features will land on this architecture next.
           </p>

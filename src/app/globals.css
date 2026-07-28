@@ -60,15 +60,12 @@
   --radius-2xl: var(--radius-2xl);
   --radius-full: var(--radius-full);
 
-  /* Spacing */
-  --spacing-xs: var(--space-xs);
-  --spacing-sm: var(--space-sm);
-  --spacing-md: var(--space-md);
-  --spacing-lg: var(--space-lg);
-  --spacing-xl: var(--space-xl);
-  --spacing-2xl: var(--space-2xl);
-  --spacing-3xl: var(--space-3xl);
-  --spacing-4xl: var(--space-4xl);
+  /*
+   * Do NOT register named --spacing-sm/md/lg/xl/2xl here.
+   * In Tailwind v4, those keys override max-w-* / w-* container sizes
+   * (e.g. max-w-xl → --spacing-xl = 1.5rem). Use --space-* CSS vars
+   * directly in custom utilities instead.
+   */
 
   /* Shadows */
   --shadow-xs: var(--shadow-xs);
@@ -88,10 +85,7 @@
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
 
-  /*
-   * Explicit container widths for max-w-* utilities.
-   * Without these, Tailwind v4 maps max-w-2xl → --spacing-2xl (2rem / 32px).
-   */
+  /* Container scale for max-w-* / w-* */
   --container-3xs: 16rem;
   --container-2xs: 18rem;
   --container-xs: 20rem;
