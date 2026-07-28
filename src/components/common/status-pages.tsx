@@ -49,7 +49,7 @@ export function ErrorDisplay({
       aria-live="assertive"
     >
       <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-      <p className="max-w-md text-muted-foreground">{message}</p>
+      <p className="text-muted-foreground max-w-md">{message}</p>
       {reset ? (
         <Button onClick={reset} variant="outline">
           Try again

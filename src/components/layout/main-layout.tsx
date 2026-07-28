@@ -1,18 +1,32 @@
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
+import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
 
 type MainLayoutProps = {
   children: React.ReactNode;
 };
 
+const navItems = [
+  { title: "Home", href: "/" },
+  { title: "Design System", href: "/design-system" },
+];
+
+const footerLinks = [
+  { title: "Design System", href: "/design-system" },
+  {
+    title: "GitHub",
+    href: "https://github.com/mallireddymanikyalareddy/azppschatgptcursor",
+    external: true,
+  },
+];
+
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="relative flex min-h-screen flex-col">
-      <SiteHeader />
+      <Navbar items={navItems} showSearch />
       <main id="main-content" className="flex-1" tabIndex={-1}>
         {children}
       </main>
-      <SiteFooter />
+      <Footer links={footerLinks} />
     </div>
   );
 }

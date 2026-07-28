@@ -1,0 +1,67 @@
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  width: 100%;
+
+  @media (width >= 640px) {
+    max-width: 640px;
+  }
+
+  @media (width >= 768px) {
+    max-width: 768px;
+  }
+
+  @media (width >= 1024px) {
+    max-width: 1024px;
+  }
+
+  @media (width >= 1280px) {
+    max-width: 1280px;
+  }
+
+  @media (width >= 1536px) {
+    max-width: 1400px;
+  }
+}
+
+@utility text-display {
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-display);
+}
+
+@utility text-body-lg {
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body-lg);
+}
+
+@utility text-body-sm {
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+}
+
+@utility text-caption {
+  font-size: var(--text-caption);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-wide);
+}
+
+@utility text-label {
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  font-weight: var(--font-weight-medium);
+}
+
+@utility surface {
+  background-color: var(--surface);
+  color: var(--surface-foreground);
+}
+
+@utility brand-wash {
+  background-image: var(--brand-wash);
+}
+
+@utility section-y {
+  padding-block: var(--space-3xl);
+}

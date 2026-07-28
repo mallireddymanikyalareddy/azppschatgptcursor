@@ -1,42 +1,43 @@
 import Link from "next/link";
 import { Calculator } from "lucide-react";
 
+import { PageHeader } from "@/components/common/page-header";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
 export default function HomePage() {
   return (
-    <section className="container flex flex-col items-center gap-8 py-24 text-center md:py-32">
-      <div className="flex size-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-        <Calculator className="size-8" aria-hidden="true" />
-      </div>
+    <section className="container py-10 md:py-16">
+      <PageHeader
+        eyebrow={siteConfig.name}
+        title="AI-Powered Calculator Platform"
+        description={siteConfig.description}
+        actions={
+          <>
+            <Button asChild size="lg">
+              <Link href="/design-system">View Design System</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <a
+                href="https://nextjs.org/docs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Documentation
+              </a>
+            </Button>
+          </>
+        }
+      />
 
-      <div className="flex max-w-2xl flex-col gap-4">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          {siteConfig.name}
-        </h1>
-        <p className="text-lg text-muted-foreground sm:text-xl">
-          {siteConfig.description}
+      <div className="border-border bg-card mx-auto flex max-w-2xl flex-col items-center gap-4 rounded-2xl border p-8 text-center shadow-sm">
+        <div className="bg-primary/10 text-primary flex size-14 items-center justify-center rounded-2xl">
+          <Calculator className="size-7" aria-hidden="true" />
+        </div>
+        <p className="text-muted-foreground text-sm">
+          Foundation and design system are production-hardened. Calculator
+          business features will be built on this architecture next.
         </p>
-        <p className="text-sm text-muted-foreground">
-          Production foundation is ready. Business features will be built on
-          this scalable architecture.
-        </p>
-      </div>
-
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button asChild size="lg">
-          <Link href="/">Get Started</Link>
-        </Button>
-        <Button asChild variant="outline" size="lg">
-          <a
-            href="https://nextjs.org/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </Button>
       </div>
     </section>
   );
