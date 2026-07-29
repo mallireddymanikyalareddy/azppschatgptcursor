@@ -7,6 +7,7 @@ export const ADMIN_ROUTES = {
 
   calculators: "/admin/calculators",
   calculatorBuilder: "/admin/calculators/builder",
+  calculatorTemplates: "/admin/templates",
   calculatorCategories: "/admin/calculators/categories",
   formulaLibrary: "/admin/calculators/formulas",
 

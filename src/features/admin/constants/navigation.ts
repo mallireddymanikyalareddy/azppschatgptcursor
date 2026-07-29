@@ -22,6 +22,7 @@ import {
   ShieldCheck,
   Sparkles,
   Tags,
+  LayoutTemplate,
   UserCircle,
   Users,
   Workflow,
@@ -81,6 +82,13 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
         title: "Calculator Builder",
         href: ADMIN_ROUTES.calculatorBuilder,
         icon: Blocks,
+        permission: "calculator.create",
+      },
+      {
+        id: "calculator-templates",
+        title: "Templates",
+        href: ADMIN_ROUTES.calculatorTemplates,
+        icon: LayoutTemplate,
         permission: "calculator.create",
       },
       {
@@ -334,6 +342,11 @@ export const ADMIN_BREADCRUMB_META: AdminBreadcrumbMeta[] = [
     parentHref: ADMIN_ROUTES.calculators,
   },
   {
+    href: ADMIN_ROUTES.calculatorTemplates,
+    title: "Templates",
+    parentHref: ADMIN_ROUTES.calculators,
+  },
+  {
     href: ADMIN_ROUTES.calculatorCategories,
     title: "Categories",
     parentHref: ADMIN_ROUTES.calculators,
@@ -406,6 +419,13 @@ export const ADMIN_PAGE_DEFINITIONS: AdminPageDefinition[] = [
     title: "Calculator Builder",
     description:
       "Create calculator definitions without code and export engine-compatible JSON.",
+    eyebrow: "Calculator Management",
+  },
+  {
+    href: ADMIN_ROUTES.calculatorTemplates,
+    title: "Calculator Templates",
+    description:
+      "Reusable blueprints for rapid calculator creation across finance, health, and more.",
     eyebrow: "Calculator Management",
   },
   {

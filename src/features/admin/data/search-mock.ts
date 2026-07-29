@@ -30,6 +30,13 @@ export const MOCK_SEARCH_RESULTS: GlobalSearchResult[] = [
     category: "Commands",
   },
   {
+    id: "s2c",
+    title: "Calculator Templates",
+    subtitle: "Command · Reusable calculator blueprints",
+    href: "/admin/templates",
+    category: "Commands",
+  },
+  {
     id: "s3",
     title: "Demo User",
     subtitle: "demo@azpps.com · Editor",
