@@ -7,7 +7,9 @@ import {
 
 /**
  * Authentication middleware foundation.
- * Uses a mock session cookie signal only — no provider integration yet.
+ * Protects app/admin prefixes via mock session cookie.
+ * Guest auth pages are not redirected here — GuestRoute handles that client-side
+ * so a stale cookie cannot lock users out of /login and /register.
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

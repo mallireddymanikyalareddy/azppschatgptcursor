@@ -100,10 +100,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const existing = readPersistedSession();
     if (existing) {
+      // Refresh cookie so middleware stays aligned with localStorage session.
+      persistSession(existing);
       setSession(existing);
       setStatus("authenticated");
       return;
     }
+    // Drop stray session cookies — otherwise middleware treats the user as
+    // signed in and /admin ↔ /login can bounce while the UI never opens.
+    persistSession(null);
     setStatus("unauthenticated");
   }, []);
 

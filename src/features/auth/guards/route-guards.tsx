@@ -14,9 +14,11 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 export function GuestRoute({ children }: { children: React.ReactNode }) {
-  const { isLoading, isAuthenticated } = useAuthGuard({ mode: "guest" });
+  const { isAuthenticated } = useAuthGuard({ mode: "guest" });
 
-  if (isLoading || isAuthenticated) {
+  // Do not block on auth loading — anonymous users must see login/register
+  // immediately. Only gate when a real session is present.
+  if (isAuthenticated) {
     return <PageLoader label="Redirecting" />;
   }
 
