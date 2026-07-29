@@ -40,7 +40,6 @@ export const config = {
     "/forgot-password",
     "/reset-password",
     "/app/:path*",
-    "/calculators/:path*",
     "/ai-factory/:path*",
     "/content/:path*",
     "/seo/:path*",

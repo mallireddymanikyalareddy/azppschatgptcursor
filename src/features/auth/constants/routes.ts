@@ -39,7 +39,6 @@ export const PUBLIC_AUTH_ROUTES = [
 /** Future protected app modules (middleware-ready). */
 export const PROTECTED_ROUTE_PREFIXES = [
   "/app",
-  "/calculators",
   "/ai-factory",
   "/content",
   "/seo",
