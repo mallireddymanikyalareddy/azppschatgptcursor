@@ -36,6 +36,7 @@ export type UseCalculatorWorkspaceResult = {
 
 /**
  * Generic calculator workspace hook — definition-driven, calculator-agnostic.
+ * Loan amortisation enrichment runs only when `definition.amortisation.enabled`.
  */
 export function useCalculatorWorkspace(
   definition: ProductionCalculatorDefinition,
@@ -66,6 +67,8 @@ export function useCalculatorWorkspace(
   const [metadata, setMetadata] =
     React.useState<UseCalculatorWorkspaceResult["metadata"]>(null);
 
+  const loanMode = Boolean(definition.amortisation?.enabled);
+
   const run = React.useCallback(
     async (values: FormValues) => {
       const business = validateCalculatorBusinessRules(
@@ -81,6 +84,25 @@ export function useCalculatorWorkspace(
       }
 
       const resolved = resolveCalculatorInputs(values, definition.inputMapping);
+
+      if (!loanMode) {
+        const response = await runEngine(resolved.values);
+        setMetadata({
+          locale: definition.locale,
+          currency: definition.currency,
+          durationMs: response.durationMs,
+          requestId:
+            typeof response.metadata.requestId === "string"
+              ? response.metadata.requestId
+              : undefined,
+        });
+        setHydratedView(definition.resultsView);
+        setFallbackData(
+          response.success ? { ...response.calculatedValues } : null,
+        );
+        return;
+      }
+
       const summary = summariseLoan({
         principal: resolved.principal,
         annualRatePercent: resolved.annualRate,
@@ -153,7 +175,7 @@ export function useCalculatorWorkspace(
         setFallbackData(summaryData);
       }
     },
-    [definition, runEngine],
+    [definition, loanMode, runEngine],
   );
 
   const resultData: ResultDataBag = React.useMemo(() => {

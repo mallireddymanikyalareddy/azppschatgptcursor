@@ -49,7 +49,9 @@ export class CalculationLogger {
   }
 
   logResponse(response: CalculationResponse): void {
-    const level = response.success ? "info" : "error";
+    // Domain failures (validation / formula) are warnings — console.error
+    // surfaces as Next.js "Console Error" overlays with opaque `{}` payloads.
+    const level = response.success ? "info" : "warn";
     this.write(
       level,
       response.success ? "calculation_complete" : "calculation_failed",
@@ -78,17 +80,28 @@ export class CalculationLogger {
 
 function defaultSink(entry: CalculationLogEntry): void {
   if (process.env.NODE_ENV === "test") return;
-  const payload = {
-    ...entry,
-  };
+  // Flatten to a string so Next.js / Turbopack overlays show real detail
+  // instead of `[calculation-engine] {}`.
+  const detail = [
+    entry.message,
+    entry.calculatorId ? `calculator=${entry.calculatorId}` : null,
+    entry.requestId ? `request=${entry.requestId}` : null,
+    entry.durationMs != null ? `durationMs=${entry.durationMs}` : null,
+    entry.errors?.length
+      ? `errors=${entry.errors.map((e) => e.message).join("; ")}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join(" | ");
+
   if (entry.level === "error") {
-    console.error("[calculation-engine]", payload);
+    console.error(`[calculation-engine] ${detail}`);
   } else if (entry.level === "warn") {
-    console.warn("[calculation-engine]", payload);
+    console.warn(`[calculation-engine] ${detail}`);
   } else if (entry.level === "debug") {
-    console.debug("[calculation-engine]", payload);
+    console.debug(`[calculation-engine] ${detail}`);
   } else {
-    console.info("[calculation-engine]", payload);
+    console.info(`[calculation-engine] ${detail}`);
   }
 }
 

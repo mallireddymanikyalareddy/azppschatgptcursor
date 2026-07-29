@@ -24,16 +24,19 @@ export function resolveDependencies(
   const edges: Record<string, string[]> = {};
 
   for (const formula of program.formulas) {
-    const deps = new Set<string>(formula.dependencies ?? []);
+    const deps = new Set<string>();
 
-    for (const depId of deps) {
-      if (!byId.has(depId)) {
+    for (const depRef of formula.dependencies ?? []) {
+      const resolvedId = byId.has(depRef) ? depRef : keyToId.get(depRef);
+      if (!resolvedId) {
         errors.push({
           code: FormulaErrorCode.UnknownFormula,
-          message: `Formula '${formula.id}' depends on unknown formula '${depId}'`,
+          message: `Formula '${formula.id}' depends on unknown formula '${depRef}'`,
           path: formula.id,
         });
+        continue;
       }
+      deps.add(resolvedId);
     }
 
     const parsed = parseExpression(formula.expression);

@@ -13,13 +13,23 @@ export type CalculatorValidationResult = {
   issues: CalculatorValidationIssue[];
 };
 
+/** Loan-specific cross-field rules need tenure / principal mapping. */
+export function isLoanInputMapping(mapping: CalculatorInputMapping): boolean {
+  return Boolean(mapping.tenure || mapping.principalNetOfPrepayment);
+}
+
 /**
  * Cross-field / business validation beyond per-field Zod rules.
+ * Loan rules apply only when the calculator uses loan input mapping.
  */
 export function validateCalculatorBusinessRules(
   formValues: FormValues,
   mapping: CalculatorInputMapping,
 ): CalculatorValidationResult {
+  if (!isLoanInputMapping(mapping)) {
+    return { valid: true, issues: [] };
+  }
+
   const issues: CalculatorValidationIssue[] = [];
   const resolved = resolveCalculatorInputs(formValues, mapping);
 
@@ -80,10 +90,6 @@ export function validateCalculatorBusinessRules(
       message: "Processing fee cannot be negative.",
       field: "processingFee",
     });
-  }
-
-  if (rate === 0 && resolved.tenureMonths > 0 && resolved.principal > 0) {
-    // Allowed — zero-interest loans use principal / n.
   }
 
   return { valid: issues.length === 0, issues };
