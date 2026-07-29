@@ -2,10 +2,8 @@ import { toFormDefinition } from "@/features/calculator-builder/lib/adapters/to-
 import { toResultsViewDefinition } from "@/features/calculator-builder/lib/adapters/to-results-view";
 import { toWorkflowDefinition } from "@/features/calculator-builder/lib/adapters/to-workflow-definition";
 import type { ProductionCalculatorDefinition } from "@/features/calculator-runtime/types";
-import {
-  MOCK_CALCULATOR_TEMPLATES,
-  templateGenerator,
-} from "@/features/calculator-templates";
+import { MOCK_CALCULATOR_TEMPLATES } from "@/features/calculator-templates/data/mock-templates";
+import { templateGenerator } from "@/features/calculator-templates/services";
 
 /**
  * Builds a runtime engine definition from a Calculator Template.

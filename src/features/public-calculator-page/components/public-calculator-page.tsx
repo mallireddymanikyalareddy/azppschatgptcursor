@@ -1,6 +1,5 @@
-"use client";
-
 import dynamic from "next/dynamic";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { AdPlacement } from "@/features/public-calculator-page/constants/enums";
 import { AdSlotsByPlacement } from "@/features/public-calculator-page/components/ad-slot";
@@ -20,12 +19,8 @@ import {
   RelatedCalculatorsSection,
   TipsSection,
 } from "@/features/public-calculator-page/components/content-sections";
-import {
-  useArticle,
-  useCalculatorContent,
-  useCalculatorPage,
-  useRelatedCalculators,
-} from "@/features/public-calculator-page/hooks";
+import { PublicPageViewTracker } from "@/features/public-calculator-page/components/view-tracker";
+import type { CalculatorPageBundle } from "@/features/public-calculator-page/types";
 
 const CalculatorEngineSection = dynamic(
   () =>
@@ -33,7 +28,6 @@ const CalculatorEngineSection = dynamic(
       (mod) => mod.CalculatorEngineSection,
     ),
   {
-    ssr: false,
     loading: () => (
       <div className="space-y-3" aria-label="Loading calculator">
         <Skeleton className="h-8 w-48" />
@@ -44,43 +38,20 @@ const CalculatorEngineSection = dynamic(
 );
 
 export type PublicCalculatorPageProps = {
-  slug: string;
+  bundle: CalculatorPageBundle;
 };
 
 /**
- * SEO-first public calculator page — configuration-driven sections.
+ * SEO-first public calculator page — rendered on the server with a
+ * deferred client calculator engine (no client data-fetch waterfall).
  */
-export function PublicCalculatorPage({ slug }: PublicCalculatorPageProps) {
-  const { bundle, loading } = useCalculatorPage(slug);
-  const related = useRelatedCalculators(bundle);
-  const article = useArticle(bundle);
-  const content = useCalculatorContent(bundle);
-
-  if (loading) {
-    return (
-      <div className="mx-auto max-w-6xl space-y-4 px-4 py-8">
-        <Skeleton className="h-10 w-2/3" />
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-64 w-full" />
-      </div>
-    );
-  }
-
-  if (!bundle) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-semibold">Calculator not found</h1>
-        <p className="text-muted-foreground mt-2 text-sm">
-          No public page is registered for “{slug}”.
-        </p>
-      </div>
-    );
-  }
-
+export function PublicCalculatorPage({ bundle }: PublicCalculatorPageProps) {
   const { page } = bundle;
 
   return (
     <div className="mx-auto max-w-6xl space-y-10 px-4 py-8 pb-24 lg:pb-10">
+      <PublicPageViewTracker slug={page.slug} />
+
       <AdSlotsByPlacement slots={page.ads} placement={AdPlacement.TopBanner} />
 
       <CalculatorHeroSection hero={page.hero} />
@@ -95,31 +66,34 @@ export function PublicCalculatorPage({ slug }: PublicCalculatorPageProps) {
             placement={AdPlacement.BetweenSections}
           />
 
-          <AboutSection blocks={article} />
+          <AboutSection blocks={page.aboutBlocks} />
 
           <AdSlotsByPlacement
             slots={page.ads}
             placement={AdPlacement.InContent}
           />
 
-          {content.formula ? (
-            <FormulaSection formula={content.formula} />
-          ) : null}
-          <BenefitsSection items={content.benefits} />
-          <TipsSection items={content.tips} />
-          <ExamplesSection items={content.examples} />
-          {content.interpretation ? (
+          {page.formula ? <FormulaSection formula={page.formula} /> : null}
+          <BenefitsSection items={page.benefits} />
+          <TipsSection items={page.tips} />
+          <ExamplesSection items={page.examples} />
+          {page.interpretation ? (
             <InterpretationSection
-              title={content.interpretation.title}
-              metricLabel={content.interpretation.metricLabel}
-              ranges={content.interpretation.ranges}
+              title={page.interpretation.title}
+              metricLabel={page.interpretation.metricLabel}
+              ranges={page.interpretation.ranges}
             />
           ) : null}
-          <MistakesSection items={content.mistakes} />
-          <FaqSection faqs={content.faqs} />
-          <RelatedCalculatorsSection {...related} />
-          <RelatedArticlesSection items={content.relatedArticles} />
-          <ReferencesSection items={content.references} />
+          <MistakesSection items={page.mistakes} />
+          <FaqSection faqs={page.faqs} />
+          <RelatedCalculatorsSection
+            related={bundle.related}
+            popular={bundle.popular}
+            sameCategory={bundle.sameCategory}
+            recentlyViewed={bundle.recentlyViewed}
+          />
+          <RelatedArticlesSection items={page.relatedArticles} />
+          <ReferencesSection items={page.references} />
           <FeedbackSection />
         </div>
 

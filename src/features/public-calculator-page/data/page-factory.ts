@@ -56,9 +56,10 @@ function padArticle(lead: string, name: string): RichContentBlock[] {
     { id: "about_p1", type: ContentBlockType.Paragraph, text: lead },
   ];
 
+  // Keep mock SEO copy short — 1100-word padding bloated SSR/HTML and slowed pages.
   let words = lead.split(/\s+/).length;
   let i = 0;
-  while (words < 1100) {
+  while (words < 180) {
     const chunk = filler[i % filler.length];
     paragraphs.push({
       id: `about_p_${i + 2}`,

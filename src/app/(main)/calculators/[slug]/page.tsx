@@ -34,7 +34,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <>
       <PublicCalculatorJsonLd page={bundle.page} />
-      <PublicCalculatorPage slug={slug} />
+      <PublicCalculatorPage bundle={bundle} />
     </>
   );
 }
