@@ -37,6 +37,13 @@ export const MOCK_SEARCH_RESULTS: GlobalSearchResult[] = [
     category: "Commands",
   },
   {
+    id: "s2d",
+    title: "AI Calculator Generator",
+    subtitle: "Command · Mock NL to calculator drafts",
+    href: "/admin/ai-factory",
+    category: "Commands",
+  },
+  {
     id: "s3",
     title: "Demo User",
     subtitle: "demo@azpps.com · Editor",

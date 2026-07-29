@@ -443,7 +443,8 @@ export const ADMIN_PAGE_DEFINITIONS: AdminPageDefinition[] = [
   {
     href: ADMIN_ROUTES.aiFactory,
     title: "AI Generator",
-    description: "AI generation workspace placeholder — no AI connected.",
+    description:
+      "Generate Builder-compatible calculator drafts from natural language (mock AI).",
     eyebrow: "AI Factory",
   },
   {
@@ -455,7 +456,7 @@ export const ADMIN_PAGE_DEFINITIONS: AdminPageDefinition[] = [
   {
     href: ADMIN_ROUTES.aiHistory,
     title: "AI History",
-    description: "Historical AI runs placeholder.",
+    description: "Mock history of AI calculator generations and review status.",
     eyebrow: "AI Factory",
   },
   {
