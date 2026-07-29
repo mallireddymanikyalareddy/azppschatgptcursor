@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { MobileNav } from "@/components/layout/mobile-nav";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { SearchBox } from "@/components/ui/search-box";
 import { siteConfig } from "@/config/site";
@@ -27,6 +28,7 @@ export function Navbar({
       )}
     >
       <div className="container flex h-14 items-center gap-4">
+        <MobileNav items={items} />
         <Link
           href="/"
           className="text-foreground shrink-0 text-[0.95rem] font-semibold tracking-tight transition-opacity hover:opacity-80"
